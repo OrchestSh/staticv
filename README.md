@@ -1,13 +1,13 @@
-# Staticv
+# StaticV
 
-Staticv gets static information needed in deployv processes
+StaticV gets static information needed in OrchestSh processes
 
 ## Install
 
 For install run as root:
 
 ```bash
-# wget -O- https://raw.githubusercontent.com/Vauxoo/staticv/master/installer.sh | sh
+# wget -O- https://raw.githubusercontent.com/OrchestSh/staticv/master/installer.sh | sh
 
 ```
 
