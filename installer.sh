@@ -43,6 +43,7 @@ check_sha() {
 }
 
 BINARY=staticv
+: ${ORCHESTSH_PREFIX:=/usr/bin}
 FORMAT=tar.gz
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(get_arch)
@@ -70,8 +71,8 @@ echo "Cheking sha of the file"
 sha=$(grep "${FULLNAME}" "${SUMSLOCAL}" 2>/dev/null | tr '\t' ' ' | cut -d ' ' -f 1)
 check_sha ${TEMP}/${FULLNAME} $sha
 
-echo "Decompressing and installing"
-(cd "${TEMP}" && tar --no-same-owner -xzf "${FULLNAME}" && mv ${BINARY} /usr/bin)
+echo "Decompressing and installing in ${ORCHESTSH_PREFIX}/${BINARY}"
+(cd "${TEMP}" && tar --no-same-owner -xzf "${FULLNAME}" && mkdir -p "${ORCHESTSH_PREFIX}" && mv ${BINARY} "${ORCHESTSH_PREFIX}/")
 
 rm -r ${TEMP}
 

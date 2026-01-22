@@ -11,4 +11,7 @@ For install run as root:
 
 ```
 
+By default, the file will be installed in `/usr/bin/`. You can instruct a different prefix by setting the
+environment variable `$ORCHESTSH_PREFIX`.
+
 **NOTE** This is an alpha version, not recommended for public use yet.
