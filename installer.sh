@@ -13,22 +13,30 @@ get_arch() {
   echo ${arch}
 }
 
+wget_auth() {
+    if [ -n "${GITHUB_TOKEN}" ]; then
+        wget --header="Authorization: token ${GITHUB_TOKEN}" "$@"
+    else
+        wget "$@"
+    fi
+}
+
 download_url() {
     api_url=$1
     url_for=$2
-    wget -q -O- ${api_url}  | jq -r '.assets[].browser_download_url' | grep ${url_for}
+    wget_auth -q -O- ${api_url}  | jq -r '.assets[].browser_download_url' | grep ${url_for}
 }
 
 get_filename() {
     api_url=$1
     url_for=$2
-    wget -q -O- ${api_url}  | jq -r '.assets[].name' | grep ${url_for}
+    wget_auth -q -O- ${api_url}  | jq -r '.assets[].name' | grep ${url_for}
 }
 
 
 release_version() {
     api_url=$1
-    wget -q -O- ${api_url}  | jq -r '.tag_name'
+    wget_auth -q -O- ${api_url}  | jq -r '.tag_name'
 }
 
 check_sha() {
@@ -59,7 +67,7 @@ FULLNAME=$(get_filename ${API_URL} ${OS}_${ARCH})
 download() {
     url=$1
     dest=$2
-    wget -q -O ${dest} "${url}"
+    wget_auth -q -O ${dest} "${url}"
 }
 
 echo "Version ${TAG} will be installed"
